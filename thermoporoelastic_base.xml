@@ -8,7 +8,24 @@
       regionAttribute="CellEntityIds"
       fieldsToImport="{ bulkModulus, permeability, porosity, biotCoefficient }"
       fieldNamesInGEOSX="{ skeleton_bulkModulus, rockPerm_permeability, rockPorosity_referencePorosity, rockPorosity_biotCoefficient }"
-      file="input/data_20_40_40/geos_input.vtu"/>
+      file="input/data_20_40_40/geos_input.vtu">
+      <InternalWell
+        name="well_producer1"
+        wellRegionName="wellRegion1"
+        wellControlsName="wellControls1"
+        polylineNodeCoords="{ { 147.304, 317.992, -3608.832 },
+                              { 147.304, 317.992, -3657.6 } }"
+        polylineSegmentConn="{ { 0, 1 } }"
+        radius="0.1"
+        numElementsPerSegment="2">
+        <Perforation
+          name="producer1_perf1"
+          distanceFromHead="15.625"/>
+        <Perforation
+          name="producer1_perf2"
+          distanceFromHead="46.875"/>
+      </InternalWell>
+    </VTKMesh>
   </Mesh>
 
   <Geometry>  
@@ -55,6 +72,10 @@
       name="Domain"
       cellBlocks="{ 99991_hexahedra }"
       materialList="{ fluid, porousRock, thermalCond }"/>
+
+    <WellElementRegion
+      name="wellRegion1"
+      materialList="{ fluid }"/>
   </ElementRegions>
 
   <Constitutive>
@@ -206,6 +227,12 @@
       coordinateFiles="{ input/xm.geos, input/ym.geos, input/z.geos }"
       voxelFile="input/ref_pressure.geos"
       interpolation="linear"/>
+    <TableFunction
+      name="producerTotalRateTable"
+      inputVarNames="{ time }"
+      coordinates="{ -1e9, 0, 1e9 }"
+      values="{ 0, 10, 10 }" 
+      interpolation="lower"/>
   </Functions>
   
 </Problem>

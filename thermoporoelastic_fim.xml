@@ -52,7 +52,15 @@
 	  <SinglePhaseWell
       name="singlePhaseWell"
       logLevel="1"
-      targetRegions="{ }">
+      targetRegions="{ wellRegion1 }">
+      <WellControls
+        name="wellControls1"
+        logLevel="1"  
+        type="producer"
+        control="BHP"
+        referenceElevation="-3608.832"
+        targetBHP="3.314585e+7"
+        targetTotalRateTableName="producerTotalRateTable"/>
     </SinglePhaseWell>
 
   </Solvers>
